@@ -29,7 +29,7 @@
       </div>
       <div class="form-group">
           @if($edit)
-              <button type="submit">Сохранить изменения</button> <a href="/tasks">Вернуться</a>
+              <button type="submit">Сохранить изменения</button> <a href="/tasks/{{ $task->id }}">Отмена</a>
           @elseif($task->user->id === auth()->id())
               <a href="/tasks/{{ $task->id }}/edit">Редактировать</a>
           @endif

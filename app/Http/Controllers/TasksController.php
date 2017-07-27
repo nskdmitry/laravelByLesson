@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class TasksController extends Controller
@@ -28,14 +29,11 @@ class TasksController extends Controller
     }
 
     public function store() {
-        $request = request('body', 'completed');
-        auth()->user()->todo(
-            new Task([
-                'user_id' => auth()->id(),
-                'body' => $request['body'],
-                'completed' => $request['completed']
-            ])
-        );
+        $user = ($id = request('user')) ? User::find($id) : auth()->user();
+
+        $user->todo(new Task(request(['body', 'completed'])));
+
+        return redirect()->action('TasksController@index');
     }
 
     public function create() {

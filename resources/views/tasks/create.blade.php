@@ -4,12 +4,8 @@
     <title>New task</title>
 @endsection
 
-<?php
-$edit = isset($edit) && $edit;
-?>
-
 @section('content')
-    <form id="taskEdit" method="post" action="/tasks/{{ $task->id }}">
+    <form id="taskEdit" method="post" action="/tasks/">
         {{ csrf_field() }}
 
         <input id="completed" name="completed" type="hidden" value="0">

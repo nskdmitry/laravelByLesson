@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mail\RegisteredNotify;
 use App\User;
+use App\Mail\NewClientNotify;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -62,10 +64,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $admin = User::all()->sortBy('created_at')->first();
+        $client = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+        \Mail::to($admin)->send(new NewClientNotify($client));
+        \Mail::to($client)->send(new RegisteredNotify($client));
+        return $client;
     }
 }

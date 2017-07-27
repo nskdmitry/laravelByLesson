@@ -10,13 +10,13 @@ Route::get('/', function () {
 
 Route::get('/tasks', 'TasksController@index');
 Route::get('/tasks/completed', 'TasksController@completed');
-Route::get('/tasks/create', 'TaskController@create');
+Route::get('/tasks/create', 'TasksController@create');
 Route::get('/tasks/{task}', 'TasksController@show');
 Route::get('/tasks/{task}/edit', 'TasksController@edit');
 
 Route::post('/tasks/', 'TasksController@store');
 
-Route::patch('/tasks/{task}', 'TaskController@update');
+Route::patch('/tasks/{task}', 'TasksController@update');
 
 // Posts
 

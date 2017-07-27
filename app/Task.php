@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    protected $fillable = ['completed', 'body', 'user_id'];
+
     public static function incomplete() {
         return static::where('completed', '=', 0)->get();
     }
