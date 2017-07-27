@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\RegistrationRequest;
 use App\Mail\RegisteredNotify;
 use App\User;
 use App\Mail\NewClientNotify;
@@ -54,6 +55,7 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+        // RegistrationRequest::createFromGlobals()->rules()
     }
 
     /**

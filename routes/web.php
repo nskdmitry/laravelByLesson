@@ -16,7 +16,7 @@ Route::get('/tasks/{task}/edit', 'TasksController@edit');
 
 Route::post('/tasks/', 'TasksController@store');
 
-Route::patch('/tasks/{task}', 'TasksController@update');
+Route::post('/tasks/{task}', 'TasksController@update');
 
 // Posts
 

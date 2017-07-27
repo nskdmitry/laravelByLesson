@@ -10,7 +10,7 @@
 
 @section('content')
   <form id="taskEdit" method="post" action="/tasks/{{ $task->id }}">
-      {{ method_field('patch') }}
+      {{ csrf_field() }}
 
       <div class="form-group">
           <input type="text" class="form-control" id="user" value="{{ $task->user->name }}" disabled>

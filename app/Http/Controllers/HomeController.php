@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Welcome;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * HomeController constructor.
      */
     public function __construct()
     {
@@ -24,7 +22,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        \Mail::to($user = auth()->user())->send(new Welcome($user));
+        if (auth()->check()) {
+            $user = auth()->user();
+            \Mail::to($user)->send(new Welcome($user));
+        }
         return view('welcome');
     }
 }
