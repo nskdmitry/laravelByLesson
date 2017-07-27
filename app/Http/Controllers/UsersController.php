@@ -46,7 +46,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('profile', compact('user'));
+        return view('profile')->with('user', $user);
     }
 
     /**
@@ -69,7 +69,7 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        return back();
     }
 
     /**

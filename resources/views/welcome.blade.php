@@ -37,7 +37,7 @@
         }
 
         .title {
-            font-size: 84px;
+            font-size: 42px;
         }
 
         .links > a {
@@ -58,11 +58,13 @@
 
 @section('content')
     <div class="title m-b-md">
-        Laracast say hello for <?= $name?>
+        Laracast say hello for <?= Auth::check() ? auth()->user()->name : 'You'?>
     </div>
 
     <div>
-        <a href="tasks/">Move to task list</a><br />
+        @if(Auth::check())
+            <a href="tasks/">Move to task list</a><br />
+        @endif
         <a href="posts/">Move to blogga</a>
     </div>
 @endsection

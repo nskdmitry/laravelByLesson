@@ -9,8 +9,24 @@ use App\User;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index() {
-        return view('posts.index')->with('all', Post::all());
+        $posts = Post::all();
+        /*
+        $sql = 'id > 0';
+        if ($month = \request('month')) {
+            $sql .= " AND monthname(created_at) LIKE '$month'";
+        }
+        if ($year = \request('year')) {
+            $sql .= " AND year(created_at) LIKE '$year'";
+        }
+        $posts = mb_strlen($sql) > 0 ? $posts->whereRaw($sql) : $posts;
+*/
+        return view('posts.index')->with('all', $posts);
     }
 
     public function create() {
@@ -23,11 +39,7 @@ class PostsController extends Controller
             'body' => 'required|min:10'
         ]);
 
-        Post::create([
-            'title' => request('title'),
-            'user_id' => intval(request('user')) ?: 1,
-            'body' => request('body')
-        ]);
+        auth()->user()->publish(new Post(\request(['title', 'body'])));
 
         return redirect()->action('PostsController@index');
     }

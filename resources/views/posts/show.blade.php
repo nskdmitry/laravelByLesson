@@ -7,9 +7,10 @@
 @section('content')
     <form id="taskEdit">
         <input type="hidden" id="id" name="id" value={{ $post->id }} />
+        <input type="hidden" id="user" name="user" value="{{ auth()->user()->getAuthIdentifier() }}" />
         <p class="blog-header">
             <input type="text" id="title" name="title" value="{{ $post->title }}" placeholder="У данного поста нет темы" size="40" required disabled />
-            <br />(by <a href="/users/{{ $post->user_id }}">{{ \App\User::find($post->user_id)->name }}</a>)
+            <br />(by <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a>)
         </p>
         <textarea id="body"
                   class="display"
@@ -28,10 +29,12 @@
     <hr>
     <div class="comment">
         @foreach($post->comments as $comment)
+            @if(isset($comment->user))
             <article class="list-group-item">
-                <h4>(<time>{{ $comment->created_at->diffForHumans() }}</time>) <a href="/users/{{ $comment->user_id }}">#{{ $comment->user_id }} say:</a></h4>
+                <h4>(<time>{{ $comment->created_at->diffForHumans() }}</time>) <a href="/users/{{ $comment->user_id }}">{{ $comment->user->name }} say:</a></h4>
                 {{ strip_tags($comment->body, '<p><ol><li><table><tr><td><th><div><h1><h2><h3><h4><h5><code><quote><cite>') }}
             </article>
+            @endif
         @endforeach
         <div class="list-group-item">
             <form action="/posts/{{ $post->id }}/comments" method="post">

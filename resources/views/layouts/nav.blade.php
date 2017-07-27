@@ -4,6 +4,12 @@
             <a class="nav-link active" href="/">Home</a>
             <a class="nav-link" href="#">Press</a>
             <a class="nav-link" href="/about">About</a>
+
+            @if(Auth::check())
+                <a class="nav-link ml-auto dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+            @endif
         </nav>
     </div>
 </div>

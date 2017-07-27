@@ -17,6 +17,7 @@
 <meta name="description" content="Powered by Laravel PHP Framework">
 <meta name="author" content="Mironenko Dmitry">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="../../favicon.ico">
 
 <meta charset="UTF-8"><link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">

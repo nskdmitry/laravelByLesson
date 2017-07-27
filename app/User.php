@@ -34,4 +34,16 @@ class User extends Authenticatable
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+    public function tasks() {
+        return $this->hasMany(Task::class);
+    }
+
+    public function publish(Post $post) {
+        $this->posts()->save($post);
+    }
+
+    public function todo(Task $task) {
+        $this->tasks()->save($task);
+    }
 }
