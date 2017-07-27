@@ -49,8 +49,23 @@
                               title="Комментарий" placeholder="Ваше мнение?">
                     </textarea>
                 </div>
-                <button type="submit">Пусть знают!</button>
-                <a href="/posts">Назад</a><br/>
+                <div class="form-group">
+                    <button type="submit">Пусть знают!</button>
+                    <a href="/posts">Назад</a><br/>
+                </div>
+                @if(count($post->tags))
+                    <div class="form-group">
+                        {{
+                            join(' ',
+                                array_map(function($tag){
+                                    return '<a href="/posts/tags/' . $tag->name . '">#' . $tag->name . '</a>';
+                                  },
+                                  $post->tags
+                                )
+                            )
+                        }}
+                    </div>
+                @endif
                 @include('layouts.errors')
             </form>
         </div>

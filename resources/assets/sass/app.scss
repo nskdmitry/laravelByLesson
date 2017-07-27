@@ -7,3 +7,10 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+#flash-message {
+  position: absolute;
+  bottom: 2pt;
+  right: 4pt;
+  z-index: 10;
+}

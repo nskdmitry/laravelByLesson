@@ -40,6 +40,7 @@ class PostsController extends Controller
         ]);
 
         auth()->user()->publish(new Post(\request(['title', 'body'])));
+        session()->flash('response', 'Your post was published');
 
         return redirect()->action('PostsController@index');
     }
@@ -54,6 +55,8 @@ class PostsController extends Controller
             'user' => 'required',
         ]);
         $post->addComment(\request());
+        session()->flash('response', 'Your comment was published');
+
         return back();
     }
 }

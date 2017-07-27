@@ -29,4 +29,11 @@ class RegistrationRequest extends FormRequest
             'password' => 'required|string|min:6|confirmed',
         ];
     }
+
+    public function persist() {
+        $admin = User::all()->sortBy('created_at')->first();
+        $client = User::create($this->only(['name', 'email', 'password']));
+        \Mail::to($admin)->send(new NewClientNotify($client));
+        \Mail::to($client)->send(new RegisteredNotify($client));
+    }
 }

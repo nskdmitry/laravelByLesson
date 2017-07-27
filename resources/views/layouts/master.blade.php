@@ -5,6 +5,12 @@
         @yield('title')
     </head>
     <body>
+        @if( $flash = session('response'))
+          <div id="flash-message" class="alert alert-success">
+              {{ $flash }}
+          </div>
+        @endif
+
         @include('layouts.nav')
         <div class="container">
             <div class="row">

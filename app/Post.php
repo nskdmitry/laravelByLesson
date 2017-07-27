@@ -29,7 +29,7 @@ class Post extends Model
             ->toArray();
     }
 
-    public function scopeFilterByMonth($query, $filter) {
+    public function scopeFilterByMonth($query) {
         if ($month = request('month')) {
             $query->whereRaw('monthname(created_at) LIKE \''.$month.'\'');
         }
@@ -37,6 +37,10 @@ class Post extends Model
         if ($year = request('year')) {
             $query->whereRaw('year(created_at) = '.$year);
         }
+    }
+
+    public function tags() {
+        return $this->belongsToMany(Tag::class);
     }
 
     protected static $queryMonth = 'year(created_at) as year, monthname(created_at) as month, count(*) as published';

@@ -17,7 +17,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('layouts.sidebar', function($view) {
-            $view->with('archives', \App\Post::packPerMonth());
+            $archives = \App\Post::packPerMonth();
+            $tags = \App\Tag::all('name');
+            
+            $view->with(compact('archives', 'tags'));
         });
     }
 

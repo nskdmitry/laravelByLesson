@@ -23,6 +23,7 @@ Route::post('/tasks/{task}', 'TasksController@update');
 Route::get('/posts', 'PostsController@index');
 Route::get('/posts/create', 'PostsController@create');
 Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::post('/posts', 'PostsController@store');
 Route::post('/posts/{post}/comments', 'PostsController@comment');
