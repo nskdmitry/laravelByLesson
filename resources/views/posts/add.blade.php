@@ -21,6 +21,10 @@
                 <textarea class="form-control" id="body" name="body" rows="5" cols="40" placeholder="Чем собираетесь поделиться?"></textarea>
             </div>
             <div class="form-group">
+                <label>Перечислите #тэги</label>
+                <input type="text" class="form-control" id="tagsline" name="tagsline" placeholder="#tag1#tag2" maxlength="255" size="40">
+            </div>
+            <div class="form-group">
                 <button type="submit" class="btn btn-default">Опубликовать</button>
                 <a href="/posts/">Отмена</a>
             </div>

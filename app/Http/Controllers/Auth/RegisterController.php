@@ -72,7 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        auth()->login($client);
+     //   auth()->login($client);
 
         \Mail::to($admin)->send(new NewClientNotify($client));
         \Mail::to($client)->send(new RegisteredNotify($client));

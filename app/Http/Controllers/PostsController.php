@@ -39,8 +39,13 @@ class PostsController extends Controller
             'body' => 'required|min:10'
         ]);
 
-        auth()->user()->publish(new Post(\request(['title', 'body'])));
+        $post = new Post(\request(['title', 'body']));
+        auth()->user()->publish($post);
         session()->flash('response', 'Your post was published');
+
+        if (\App\Tag::find(27)) {
+            $post->tags()->attach(27);
+        }
 
         return redirect()->action('PostsController@index');
     }
@@ -58,5 +63,15 @@ class PostsController extends Controller
         session()->flash('response', 'Your comment was published');
 
         return back();
+    }
+
+    protected function addTags(Post $post, $tagsLine) {
+        $tagsLine = str_replace([',', ' ', ';'], '', '*'.trim($tagsLine));
+        $tagsCloud = explode('#', $tagsLine, 128);
+        foreach ($tagsCloud as $tag) {
+            if ($the_tag = \App\Tag::where('name', 'LIKE', '"'.$tag.'"')->get()) {
+                $post->tags()->attach($the_tag->id, ['post_id' => $post->id]);
+            }
+        }
     }
 }

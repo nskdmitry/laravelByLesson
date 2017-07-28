@@ -9,6 +9,14 @@ class Post extends Model
 {
     protected $fillable = ['title', 'body', 'user_id'];
 
+//    public function __construct($attributes)
+//    {
+//        parent::__construct($attributes);
+//        if ($tag = \App\Tag::all()->where('name', 'LIKE', '\*')) {
+//            $this->tags()->attach($tag->id);
+//        }
+//    }
+
     public function comments() {
         return $this->hasMany(Comment::class);
     }

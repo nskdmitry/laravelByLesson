@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
-    public function index(Tag $tag) {
-        $posts = $tag->posts;
+    public function index(\App\Tag $tag) {
+        $all = $tag->posts;
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('all'));
     }
 }

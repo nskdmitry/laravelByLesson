@@ -4,24 +4,24 @@
 <div class="sidebar-module">
    <h4>Archives</h4>
    <ol class="list-unstyled">
-       {{--@foreach($archives as $archive)--}}
-           {{--<li>--}}
-               {{--<a href="/posts?month={{ $archive['month'] }}&year={{ $archive['year'] }}">--}}
-                   {{--{{ $archive['month'] }} {{ $archive['year'] }} ({{ $archive['published'] }})--}}
-               {{--</a>--}}
-           {{--</li>--}}
-       {{--@endforeach--}}
+       @foreach(($archives = \App\Post::packPerMonth()) as $archive)
+           <li>
+               <a href="/posts?month={{ $archive['month'] }}&year={{ $archive['year'] }}">
+                   {{ $archive['month'] }} {{ $archive['year'] }} ({{ $archive['published'] }})
+               </a>
+           </li>
+       @endforeach
    </ol>
 </div>
 <div class="sidebar-module">
     <h4>Tags Cloud</h4>
     <ul class="list-unstyled">
-        @foreach($tags as $tag)
+        @foreach(( $tags = \App\Tag::all()) as $tag)
             <li>
                 @if($attached = count($tag->posts))
-                <a href="/posts/tags/{{ $tag->name }}" style="font-size: {{ 10 + $attached }};">
+                <a href="/posts/tags/{{ $tag->name }}" style="font-size: {{ 10 + $attached*4 }};">
                     {{ $tag->name }}
-                </a>
+                </a> ({{ $attached }})
                 @else
                     {{ $tag->name }}
                 @endif
