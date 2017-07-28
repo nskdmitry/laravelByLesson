@@ -25,13 +25,13 @@
       @if(strcmp($post->created_at, $post->updated_at) !== 0)
           <input disabled title="Последние правки были" placeholder="Видать, не менялось" value="{{ $post->updated_at }}" />
       @endif
-      @if(count($tags = $post->tags->all()) > 0)
+      @if(count($tags = $post->tags->all()))
           <div class="form-group">
                @foreach($tags as $tag)
-                   <a href="/posts/tags/{{ $tag->name }}">#{{ $tag->name }}</a>&nbsp
+                   #@include('layouts.tag')
                @endforeach
           </div>
-       @endif
+      @endif
     </form>
     <hr>
     <div class="comment">
