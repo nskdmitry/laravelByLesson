@@ -18,7 +18,9 @@
             Error: the variable $all is not set before view generation.
         </div>
     @endif
+    @if(auth()->check())
     <div>
         <a href="/posts/create">Добавить новую запись</a>
     </div>
+    @endif
 @endsection

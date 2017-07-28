@@ -7,7 +7,7 @@
 @section('content')
     <form id="taskEdit">
         <input type="hidden" id="id" name="id" value={{ $post->id }} />
-        <input type="hidden" id="user" name="user" value="{{ auth()->user()->getAuthIdentifier() }}" />
+        <input type="hidden" id="user" name="user" value="{{ $post->user_id }}" />
         <p class="blog-header">
             <input type="text" id="title" name="title" value="{{ $post->title }}" placeholder="У данного поста нет темы" size="40" required disabled />
             <br />(by <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a>)
