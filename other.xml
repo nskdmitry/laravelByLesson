@@ -1,9 +1,0 @@
-<application>
-  <component name="NodeJsLocalInterpreters">
-    <local-interpreter path="/usr/local/bin/node" />
-    <local-interpreter path="/usr/local/Cellar/node/8.1.2/bin/node" />
-  </component>
-  <component name="PhpRefactoringSettings">
-    <option name="RENAME_SEARCH_NON_CODE_FOR_VARIABLE" value="true" />
-  </component>
-</application>
