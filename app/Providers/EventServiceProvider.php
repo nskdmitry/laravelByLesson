@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\ThreadCreate' => [
             'App\Listeners\NotifySubscribers',
+            'App\Listener\CheckForSpam'
         ],
     ];
 

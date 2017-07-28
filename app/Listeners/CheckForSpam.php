@@ -2,11 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Events\ThreadCreate;
+use App\Events\ThreadCreated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NotifySubscribers
+class CheckForSpam implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -21,11 +21,11 @@ class NotifySubscribers
     /**
      * Handle the event.
      *
-     * @param  ThreadCreate  $event
+     * @param  ThreadCreated  $event
      * @return void
      */
-    public function handle(ThreadCreate $event)
+    public function handle(ThreadCreated $event)
     {
-        var_dump($event->thread['name'] . ' was published on the forum.');
+        var_dump('Check for spam');
     }
 }
