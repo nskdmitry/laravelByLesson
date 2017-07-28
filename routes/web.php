@@ -1,9 +1,7 @@
 <?php
 
 Route::get('/', function () {
-    $name = 'Dmitry';
-    //)->with(varname, varvalue) //, []) //compact(varname))
-    return view('welcome', ['name' => $name]);
+    return view('welcome');
 });
 
 // Tasks
@@ -35,7 +33,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Accounts & Auth
 
-Route::get('/users/{id}', 'UsersController@show');
+Route::get('/users/{user}', 'UsersController@show');
+Route::get('/users/{user}/help', 'UsersController@alarm');
 Auth::routes();
 Route::post('/users/profile', 'UsersController@update');
 
