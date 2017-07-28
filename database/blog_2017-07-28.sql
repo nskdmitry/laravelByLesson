@@ -7,7 +7,7 @@
 #
 # Адрес: 127.0.0.1 (MySQL 5.5.5-10.2.7-MariaDB)
 # Схема: blog
-# Время создания: 2017-07-28 06:36:29 +0000
+# Время создания: 2017-07-28 09:11:42 +0000
 # ************************************************************
 
 
@@ -48,6 +48,34 @@ VALUES
 	(6,5,1,'I am Haloway, I am a holyday!','2017-07-26 06:27:07','2017-07-26 06:27:07');
 
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Дамп таблицы migrations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `migrations`;
+
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`)
+VALUES
+	(31,'2014_10_12_000000_create_users_table',1),
+	(32,'2014_10_12_100000_create_password_resets_table',1),
+	(33,'2017_07_24_082459_create_tasks_table',1),
+	(34,'2017_07_24_101406_create_posts_table',1),
+	(35,'2017_07_25_075121_create_comments_table',1),
+	(36,'2017_07_27_081612_create_tags_table',2);
+
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -245,9 +273,10 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(3,'Dmitry','mironenko@gorodok.net','$2y$10$Ka.k2Pda5ExvHHcJOZg3ke9mTQxh.pvo.D9.f2TUQm38sV3tdi7GW','i9vTzzGaxHYvFa27hE2GvPCqJi5nwDnHZu0lSK3dQjjMhvC4xiVMYOMXgYO0','2017-07-26 04:24:28','2017-07-26 04:24:28'),
+	(3,'Dmitry','mironenko@gorodok.net','$2y$10$Ka.k2Pda5ExvHHcJOZg3ke9mTQxh.pvo.D9.f2TUQm38sV3tdi7GW','wxHfMhF60qfcu0uBGZlYosO88lB8DC3fG8cvbbxifEQgLwGb41GHt65HTuhF','2017-07-26 04:24:28','2017-07-26 04:24:28'),
 	(5,'Halvey','halo@way.org','$2y$10$eHf4sY0k5XneesMJINSH7u7wIDNuSa9abQZoawFvzRCqHqc4pZPoO','WWIGPeD6ARLZlfC342N0g2KxPC8R3vCETnXMb4gCVHdWxmcs4ZnqFjs0yigv','2017-07-26 06:24:25','2017-07-26 06:24:25'),
-	(8,'guest','270d8f79fe-bb0838@inbox.mailtrap.io','$2y$10$UytNepQxn1YPs6uwatnjD.C/memQoG87sGFK0UdeBb0QP1I3xeari',NULL,'2017-07-27 05:26:03','2017-07-27 05:26:03');
+	(8,'guest','270d8f79fe-bb0838@inbox.mailtrap.io','$2y$10$UytNepQxn1YPs6uwatnjD.C/memQoG87sGFK0UdeBb0QP1I3xeari',NULL,'2017-07-27 05:26:03','2017-07-27 05:26:03'),
+	(9,'Test','test@example.ru','$2y$10$oVC4I2ohTrJF0N0qO6Wx/.boV5gz/dc/IttMwDFG5nEC/2Fa3138.',NULL,'2017-07-28 07:00:54','2017-07-28 07:00:54');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
