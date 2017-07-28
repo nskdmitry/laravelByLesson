@@ -25,6 +25,13 @@
       @if(strcmp($post->created_at, $post->updated_at) !== 0)
           <input disabled title="Последние правки были" placeholder="Видать, не менялось" value="{{ $post->updated_at }}" />
       @endif
+      @if(count($tags = $post->tags->all()) > 0)
+          <div class="form-group">
+               @foreach($tags as $tag)
+                   <a href="/posts/tags/{{ $tag->name }}">#{{ $tag->name }}</a>&nbsp
+               @endforeach
+          </div>
+       @endif
     </form>
     <hr>
     <div class="comment">
@@ -53,19 +60,7 @@
                     <button type="submit">Пусть знают!</button>
                     <a href="/posts">Назад</a><br/>
                 </div>
-                @if(count($post->tags))
-                    <div class="form-group">
-                        {{
-                            join(' ',
-                                array_map(function($tag){
-                                    return '<a href="/posts/tags/' . $tag->name . '">#' . $tag->name . '</a>';
-                                  },
-                                  $post->tags
-                                )
-                            )
-                        }}
-                    </div>
-                @endif
+
                 @include('layouts.errors')
             </form>
         </div>

@@ -69,9 +69,11 @@ class PostsController extends Controller
         $tagsLine = str_replace([',', ' ', ';'], '', '*'.trim($tagsLine));
         $tagsCloud = explode('#', $tagsLine, 128);
         foreach ($tagsCloud as $tag) {
-            if ($the_tag = \App\Tag::where('name', 'LIKE', '"'.$tag.'"')->get()) {
-                $post->tags()->attach($the_tag->id, ['post_id' => $post->id]);
+            if (!($the_tag = \App\Tag::where('name', 'LIKE', '"'.$tag.'"')->get())) {
+                $the_tag = new \App\Tag(['name' => $tag]);
+                $the_tag->save();
             }
+            $post->tags()->attach($the_tag->id, ['post_id' => $post->id]);
         }
     }
 }
