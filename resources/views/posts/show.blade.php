@@ -7,7 +7,7 @@
 @section('content')
     <form id="taskEdit">
         <input type="hidden" id="id" name="id" value={{ $post->id }} />
-        <input type="hidden" id="user" name="user" value="{{ auth()->user()->getAuthIdentifier() }}" />
+        <input type="hidden" id="user" name="user" value="{{ $post->user_id }}" />
         <p class="blog-header">
             <input type="text" id="title" name="title" value="{{ $post->title }}" placeholder="У данного поста нет темы" size="40" required disabled />
             <br />(by <a href="/users/{{ $post->user->id }}">{{ $post->user->name }}</a>)
@@ -25,13 +25,13 @@
       @if(strcmp($post->created_at, $post->updated_at) !== 0)
           <input disabled title="Последние правки были" placeholder="Видать, не менялось" value="{{ $post->updated_at }}" />
       @endif
-      @if(count($tags = $post->tags->all()) > 0)
+      @if(count($tags = $post->tags->all()))
           <div class="form-group">
                @foreach($tags as $tag)
-                   <a href="/posts/tags/{{ $tag->name }}">#{{ $tag->name }}</a>&nbsp
+                   #@include('layouts.tag')
                @endforeach
           </div>
-       @endif
+      @endif
     </form>
     <hr>
     <div class="comment">

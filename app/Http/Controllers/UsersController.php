@@ -60,6 +60,11 @@ class UsersController extends Controller
         //
     }
 
+    public function alarm(User $user)
+    {
+        \Mail::to(config('mail.from.address'))->from($user)->send(new \App\Mail\HackAlarmMail($user));
+    }
+
     /**
      * Update the specified resource in storage.
      *

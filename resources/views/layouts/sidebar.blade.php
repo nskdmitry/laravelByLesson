@@ -18,13 +18,7 @@
     <ul class="list-unstyled">
         @foreach(( $tags = \App\Tag::all()) as $tag)
             <li>
-                @if($attached = count($tag->posts))
-                <a href="/posts/tags/{{ $tag->name }}" style="font-size: {{ 10 + $attached*4 }};">
-                    {{ $tag->name }}
-                </a> ({{ $attached }})
-                @else
-                    {{ $tag->name }}
-                @endif
+                @include('layouts.tag')({{ count($tag->posts) }})
             </li>
         @endforeach
     </ul>

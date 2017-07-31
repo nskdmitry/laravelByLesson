@@ -16,6 +16,10 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Event' => [
             'App\Listeners\EventListener',
         ],
+        'App\Events\ThreadCreate' => [
+            'App\Listeners\NotifySubscribers',
+            'App\Listener\CheckForSpam'
+        ],
     ];
 
     /**

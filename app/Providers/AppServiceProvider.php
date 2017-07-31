@@ -16,17 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //dd(123);
-        view()->share('archives', \App\Post::packPerMonth());
-        view()->share('tags', \App\Tag::all());
-        /*
         view()->composer('layouts.sidebar', function($view) {
             $archives = \App\Post::packPerMonth();
             $tags = \App\Tag::all('name');
             dd(compact('archives', 'tags', 'this'));
             $view->with(compact('archives', 'tags'));
         });
-        */
     }
 
     /**

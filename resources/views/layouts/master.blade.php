@@ -15,7 +15,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-8 blog-main">
-                    @yield('content')
+                    <div class="scrollbox">
+                        @yield('content')
+                    </div>
 
                     <nav class="blog-pagination">
                         <a class="btn btn-outline-primary" href="#">Older</a>

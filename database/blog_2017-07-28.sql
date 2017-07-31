@@ -7,7 +7,7 @@
 #
 # Адрес: 127.0.0.1 (MySQL 5.5.5-10.2.7-MariaDB)
 # Схема: blog
-# Время создания: 2017-07-28 02:13:45 +0000
+# Время создания: 2017-07-28 09:11:42 +0000
 # ************************************************************
 
 
@@ -51,22 +51,51 @@ VALUES
 UNLOCK TABLES;
 
 
-# Дамп таблицы post_tags
+# Дамп таблицы migrations
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `post_tags`;
+DROP TABLE IF EXISTS `migrations`;
 
-CREATE TABLE `post_tags` (
+CREATE TABLE `migrations` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+LOCK TABLES `migrations` WRITE;
+/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`)
+VALUES
+	(31,'2014_10_12_000000_create_users_table',1),
+	(32,'2014_10_12_100000_create_password_resets_table',1),
+	(33,'2017_07_24_082459_create_tasks_table',1),
+	(34,'2017_07_24_101406_create_posts_table',1),
+	(35,'2017_07_25_075121_create_comments_table',1),
+	(36,'2017_07_27_081612_create_tags_table',2);
+
+/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Дамп таблицы post_tag
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `post_tag`;
+
+CREATE TABLE `post_tag` (
   `post_id` int(11) NOT NULL,
   `tag_id` int(11) NOT NULL,
   PRIMARY KEY (`post_id`,`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-LOCK TABLES `post_tags` WRITE;
-/*!40000 ALTER TABLE `post_tags` DISABLE KEYS */;
+LOCK TABLES `post_tag` WRITE;
+/*!40000 ALTER TABLE `post_tag` DISABLE KEYS */;
 
-INSERT INTO `post_tags` (`post_id`, `tag_id`)
+INSERT INTO `post_tag` (`post_id`, `tag_id`)
 VALUES
+	(0,0),
 	(1,2),
 	(1,5),
 	(1,6),
@@ -76,18 +105,32 @@ VALUES
 	(1,20),
 	(1,25),
 	(1,26),
+	(1,27),
 	(2,2),
 	(2,5),
 	(2,6),
 	(2,7),
 	(2,13),
+	(2,27),
 	(3,2),
 	(3,13),
 	(3,20),
 	(3,25),
-	(3,26);
+	(3,26),
+	(3,27),
+	(5,27),
+	(6,27),
+	(7,1),
+	(7,27),
+	(8,3),
+	(8,4),
+	(8,7),
+	(8,14),
+	(8,20),
+	(8,25),
+	(8,27);
 
-/*!40000 ALTER TABLE `post_tags` ENABLE KEYS */;
+/*!40000 ALTER TABLE `post_tag` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -113,7 +156,11 @@ INSERT INTO `posts` (`id`, `title`, `body`, `user_id`, `created_at`, `updated_at
 VALUES
 	(1,'Test #1','Add a post',3,'2017-07-25 09:20:38','2017-07-25 09:20:38'),
 	(2,'Test #2','Add a post and comment for this',3,'2017-07-25 09:21:02','2017-07-25 09:21:02'),
-	(3,'Test #3','Add a post on more after the now.',5,'2017-12-26 14:07:20','2017-12-26 14:07:25');
+	(3,'Test #3','Add a post on more after the now.',5,'2017-12-26 14:07:20','2017-12-26 14:07:25'),
+	(5,'Test #4','Automatically adding tag \'something/all\' (*).',3,'2017-07-28 04:07:21','2017-07-28 04:07:21'),
+	(6,'Test #5','My next stage - shall learned a final lesson of Laravel (#32) and learn not understood of me lessons.',3,'2017-07-28 04:13:24','2017-07-28 04:13:24'),
+	(7,'My mind','Windows 7 must have for clearing and optimization on my notebook. But I can do it only after my work.',3,'2017-07-28 04:36:01','2017-07-28 04:36:01'),
+	(8,'Larecast powered project','Larecast course with name \"Laravel 5.4 From Scratch\" was finished. Next: other ideas shall be implemented on this project. I created this task for me.',3,'2017-07-28 06:32:29','2017-07-28 06:32:29');
 
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -163,7 +210,8 @@ VALUES
 	(23,'script','2017-07-27 15:33:30','2017-07-27 15:33:30'),
 	(24,'api','2017-07-27 15:33:41','2017-07-27 15:33:41'),
 	(25,'learning','2017-07-27 15:49:45','2017-07-27 15:49:45'),
-	(26,'manual','2017-07-27 15:50:02','2017-07-27 15:50:02');
+	(26,'manual','2017-07-27 15:50:02','2017-07-27 15:50:02'),
+	(27,'*','2017-07-28 10:36:35','2017-07-28 10:36:35');
 
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -193,9 +241,11 @@ VALUES
 	(2,3,'Learn more lessons about Laravel',1,'2017-07-24 15:45:05','2017-07-24 15:45:05'),
 	(3,3,'Create a ToDoList microsite powered by Laravel',1,'2017-07-24 15:46:19','2017-07-24 15:46:19'),
 	(4,5,'Push all to the repository.',1,'2017-07-24 15:46:48','2017-07-24 15:46:48'),
-	(5,3,'Take a shower on this evening',0,'2017-07-27 04:14:18','2017-07-27 04:14:18'),
-	(6,8,'Laravel lessons: ending course.',0,'2017-07-27 06:19:04','2017-07-27 06:19:04'),
-	(7,8,'Take a salary',1,'2017-07-27 06:20:02','2017-07-27 06:20:02');
+	(5,3,'Take a shower on this evening',1,'2017-07-27 04:14:18','2017-07-27 04:14:18'),
+	(6,8,'Laravel lessons: ending course.',1,'2017-07-27 06:19:04','2017-07-27 06:19:04'),
+	(7,8,'Take a salary',1,'2017-07-27 06:20:02','2017-07-27 06:20:02'),
+	(8,3,'Shall ended a Laravel course on Laracast.com.',1,'2017-07-28 05:45:31','2017-07-28 05:45:31'),
+	(9,3,'Understans all Laravel 5.4 from scratch course.',0,'2017-07-28 13:26:38','2017-07-28 13:26:38');
 
 /*!40000 ALTER TABLE `tasks` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -223,9 +273,10 @@ LOCK TABLES `users` WRITE;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`)
 VALUES
-	(3,'Dmitry','mironenko@gorodok.net','$2y$10$Ka.k2Pda5ExvHHcJOZg3ke9mTQxh.pvo.D9.f2TUQm38sV3tdi7GW','i9vTzzGaxHYvFa27hE2GvPCqJi5nwDnHZu0lSK3dQjjMhvC4xiVMYOMXgYO0','2017-07-26 04:24:28','2017-07-26 04:24:28'),
+	(3,'Dmitry','mironenko@gorodok.net','$2y$10$Ka.k2Pda5ExvHHcJOZg3ke9mTQxh.pvo.D9.f2TUQm38sV3tdi7GW','wxHfMhF60qfcu0uBGZlYosO88lB8DC3fG8cvbbxifEQgLwGb41GHt65HTuhF','2017-07-26 04:24:28','2017-07-26 04:24:28'),
 	(5,'Halvey','halo@way.org','$2y$10$eHf4sY0k5XneesMJINSH7u7wIDNuSa9abQZoawFvzRCqHqc4pZPoO','WWIGPeD6ARLZlfC342N0g2KxPC8R3vCETnXMb4gCVHdWxmcs4ZnqFjs0yigv','2017-07-26 06:24:25','2017-07-26 06:24:25'),
-	(8,'guest','270d8f79fe-bb0838@inbox.mailtrap.io','$2y$10$UytNepQxn1YPs6uwatnjD.C/memQoG87sGFK0UdeBb0QP1I3xeari',NULL,'2017-07-27 05:26:03','2017-07-27 05:26:03');
+	(8,'guest','270d8f79fe-bb0838@inbox.mailtrap.io','$2y$10$UytNepQxn1YPs6uwatnjD.C/memQoG87sGFK0UdeBb0QP1I3xeari',NULL,'2017-07-27 05:26:03','2017-07-27 05:26:03'),
+	(9,'Test','test@example.ru','$2y$10$oVC4I2ohTrJF0N0qO6Wx/.boV5gz/dc/IttMwDFG5nEC/2Fa3138.',NULL,'2017-07-28 07:00:54','2017-07-28 07:00:54');
 
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
